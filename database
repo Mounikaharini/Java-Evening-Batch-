@@ -1,0 +1,53 @@
+package com.project.sample;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Scanner;
+
+public class task1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String url = "jdbc:mysql://localhost:3306/college";
+		String user = "root"; 
+	    String password = "1234";
+	   
+//		long reg = 620121243032L;
+//	    String name = "Vishaal";
+//	    long ph = 7812813477L;
+//	    int arrear = 0;
+	    
+	    Scanner s = new Scanner(System.in);
+	    System.out.println("Enter the Register Number :");
+	    long reg = s.nextLong();
+	    s.nextLine();
+	    System.out.println("Enter Your Name :");
+	    String name = s.nextLine();
+	    System.out.println("Enter Your Phone Number :");
+	    long ph = s.nextLong();
+	    s.nextLine();
+	    System.out.println("Enter the No.Of.Arrears :");
+	    int arrear = s.nextInt();
+	    s.nextLine();
+	    try {
+	    		Connection con = DriverManager.getConnection(url, user, password);
+	   		System.out.println("connection created");
+	   		String insertQuery = "INSERT INTO ece(Register_Number,Name,Phone_Number,Arrear) VALUES (?, ?, ? ,?)";
+	    	   	PreparedStatement pst = con.prepareStatement(insertQuery);
+		    pst.setLong(1,reg);
+		    pst.setString(2, name);
+		    pst.setLong(3,ph);
+		    pst.setInt(4,arrear);
+		    pst.executeUpdate();
+		       
+	    } catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+	       
+
+	}
+
+}
